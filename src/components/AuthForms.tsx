@@ -73,7 +73,7 @@ export const AuthForms = () => {
     
     const success = signup(signupForm.name, signupForm.email, signupForm.password);
     if (success) {
-      showToast("Account Created! 🎉 Welcome to TasteHub!", "success");
+      showToast("Account Created! 🎉 Welcome to Food App!", "success");
       setSignupForm({
         name: "",
         email: "",

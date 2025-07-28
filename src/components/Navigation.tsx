@@ -60,7 +60,7 @@ export const Navigation = ({ currentView, onViewChange }: NavigationProps) => {
                 fontWeight: 700,
               }}
             >
-              TasteHub
+              FOOD APP
             </Typography>
           </Box>
           
