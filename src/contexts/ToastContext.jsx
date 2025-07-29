@@ -1,17 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { Snackbar, Alert, AlertColor } from '@mui/material';
+import React, { createContext, useContext, useState } from 'react';
+import { Snackbar, Alert } from '@mui/material';
 
-interface Toast {
-  open: boolean;
-  message: string;
-  severity: AlertColor;
-}
-
-interface ToastContextType {
-  showToast: (message: string, severity?: AlertColor) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+const ToastContext = createContext(undefined);
 
 export const useToast = () => {
   const context = useContext(ToastContext);
@@ -21,18 +11,14 @@ export const useToast = () => {
   return context;
 };
 
-interface ToastProviderProps {
-  children: ReactNode;
-}
-
-export const ToastProvider = ({ children }: ToastProviderProps) => {
-  const [toast, setToast] = useState<Toast>({
+export const ToastProvider = ({ children }) => {
+  const [toast, setToast] = useState({
     open: false,
     message: '',
-    severity: 'success',
+    severity: 'success', // Options: 'success', 'error', 'warning', 'info'
   });
 
-  const showToast = (message: string, severity: AlertColor = 'success') => {
+  const showToast = (message, severity = 'success') => {
     setToast({
       open: true,
       message,
@@ -41,7 +27,7 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
   };
 
   const handleClose = () => {
-    setToast(prev => ({ ...prev, open: false }));
+    setToast((prev) => ({ ...prev, open: false }));
   };
 
   const value = {

@@ -7,43 +7,31 @@ import {
   Typography,
   Avatar,
   Container,
-  Grid,
 } from "@mui/material";
 import { Restaurant } from "@mui/icons-material";
 import { useToast } from "@/contexts/ToastContext";
 import { useAuth } from "@/contexts/AuthContext";
 
-interface SignupFormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
 export const AuthForms = () => {
   const [isSignup, setIsSignup] = useState(false);
-  const [loginForm, setLoginForm] = useState<LoginFormData>({ email: "", password: "" });
-  const [signupForm, setSignupForm] = useState<SignupFormData>({
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+  const [signupForm, setSignupForm] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
   const { showToast } = useToast();
   const { login, signup } = useAuth();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     if (!loginForm.email || !loginForm.password) {
       showToast("Please fill in all fields", "error");
       return;
     }
-    
+
     const success = login(loginForm.email, loginForm.password);
     if (success) {
       showToast("Welcome back! 🎉", "success");
@@ -53,25 +41,34 @@ export const AuthForms = () => {
     }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    
-    if (!signupForm.name || !signupForm.email || !signupForm.password || !signupForm.confirmPassword) {
+
+    if (
+      !signupForm.name ||
+      !signupForm.email ||
+      !signupForm.password ||
+      !signupForm.confirmPassword
+    ) {
       showToast("Please fill in all fields", "error");
       return;
     }
-    
+
     if (signupForm.password !== signupForm.confirmPassword) {
       showToast("Passwords do not match", "error");
       return;
     }
-    
+
     if (signupForm.password.length < 6) {
       showToast("Password must be at least 6 characters", "error");
       return;
     }
-    
-    const success = signup(signupForm.name, signupForm.email, signupForm.password);
+
+    const success = signup(
+      signupForm.name,
+      signupForm.email,
+      signupForm.password
+    );
     if (success) {
       showToast("Account Created! 🎉 Welcome to Food App!", "success");
       setSignupForm({
@@ -92,7 +89,8 @@ export const AuthForms = () => {
           elevation={0}
           className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100"
           sx={{
-            boxShadow: '0 20px 40px -12px rgb(0 0 0 / 0.1), 0 10px 20px -6px rgb(0 0 0 / 0.05)',
+            boxShadow:
+              "0 20px 40px -12px rgb(0 0 0 / 0.1), 0 10px 20px -6px rgb(0 0 0 / 0.05)",
           }}
         >
           <Box className="text-center mb-8">
@@ -110,7 +108,9 @@ export const AuthForms = () => {
               {isSignup ? "Join TasteHub" : "Welcome Back"}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {isSignup ? "Create your account to start ordering" : "Sign in to your account"}
+              {isSignup
+                ? "Create your account to start ordering"
+                : "Sign in to your account"}
             </Typography>
           </Box>
 
@@ -122,11 +122,12 @@ export const AuthForms = () => {
                 label="Full Name"
                 placeholder="Enter your full name"
                 value={signupForm.name}
-                onChange={(e) => setSignupForm({ ...signupForm, name: e.target.value })}
+                onChange={(e) =>
+                  setSignupForm({ ...signupForm, name: e.target.value })
+                }
                 variant="outlined"
                 className="mb-4"
               />
-              
               <TextField
                 fullWidth
                 id="email"
@@ -134,11 +135,12 @@ export const AuthForms = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={signupForm.email}
-                onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
+                onChange={(e) =>
+                  setSignupForm({ ...signupForm, email: e.target.value })
+                }
                 variant="outlined"
                 className="mb-4"
               />
-              
               <TextField
                 fullWidth
                 id="password"
@@ -146,11 +148,12 @@ export const AuthForms = () => {
                 type="password"
                 placeholder="Create a password"
                 value={signupForm.password}
-                onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+                onChange={(e) =>
+                  setSignupForm({ ...signupForm, password: e.target.value })
+                }
                 variant="outlined"
                 className="mb-4"
               />
-              
               <TextField
                 fullWidth
                 id="confirmPassword"
@@ -158,11 +161,15 @@ export const AuthForms = () => {
                 type="password"
                 placeholder="Confirm your password"
                 value={signupForm.confirmPassword}
-                onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
+                onChange={(e) =>
+                  setSignupForm({
+                    ...signupForm,
+                    confirmPassword: e.target.value,
+                  })
+                }
                 variant="outlined"
                 className="mb-6"
               />
-              
               <Button
                 type="submit"
                 fullWidth
@@ -170,9 +177,11 @@ export const AuthForms = () => {
                 size="large"
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-300 py-3"
                 sx={{
-                  background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 100%)',
+                  background:
+                    "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(135deg, #ea580c 0%, #dc2626 100%)",
                   },
                 }}
               >
@@ -188,11 +197,12 @@ export const AuthForms = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={loginForm.email}
-                onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                onChange={(e) =>
+                  setLoginForm({ ...loginForm, email: e.target.value })
+                }
                 variant="outlined"
                 className="mb-4"
               />
-              
               <TextField
                 fullWidth
                 id="loginPassword"
@@ -200,11 +210,12 @@ export const AuthForms = () => {
                 type="password"
                 placeholder="Enter your password"
                 value={loginForm.password}
-                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                onChange={(e) =>
+                  setLoginForm({ ...loginForm, password: e.target.value })
+                }
                 variant="outlined"
                 className="mb-6"
               />
-              
               <Button
                 type="submit"
                 fullWidth
@@ -212,9 +223,11 @@ export const AuthForms = () => {
                 size="large"
                 className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-300 py-3"
                 sx={{
-                  background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
-                  '&:hover': {
-                    background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 100%)',
+                  background:
+                    "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(135deg, #ea580c 0%, #dc2626 100%)",
                   },
                 }}
               >
@@ -222,21 +235,23 @@ export const AuthForms = () => {
               </Button>
             </Box>
           )}
-          
+
           <Box className="text-center mt-6">
             <Typography variant="body2" color="text.secondary" component="span">
-              {isSignup ? "Already have an account? " : "Don't have an account? "}
+              {isSignup
+                ? "Already have an account? "
+                : "Don't have an account? "}
             </Typography>
             <Button
               variant="text"
               onClick={() => setIsSignup(!isSignup)}
               className="p-0 text-orange-600 hover:text-orange-700 font-medium"
               sx={{
-                textTransform: 'none',
-                minWidth: 'auto',
+                textTransform: "none",
+                minWidth: "auto",
                 padding: 0,
-                '&:hover': {
-                  backgroundColor: 'transparent',
+                "&:hover": {
+                  backgroundColor: "transparent",
                 },
               }}
             >

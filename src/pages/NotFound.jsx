@@ -1,5 +1,5 @@
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
 import { Home } from "@mui/icons-material";
 
@@ -14,21 +14,19 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <Box className="min-h-screen flex items-center justify-center bg-gray-100">
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f3f4f6' }}>
       <Container maxWidth="sm">
-        <Box className="text-center">
-          <Typography 
-            variant="h1" 
-            component="h1" 
-            className="text-6xl font-bold mb-4 text-gray-800"
-            sx={{ fontSize: '4rem', fontWeight: 700 }}
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="h1"
+            component="h1"
+            sx={{ fontSize: '4rem', fontWeight: 700, marginBottom: '1rem', color: '#1f2937' }}
           >
             404
           </Typography>
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            className="text-xl text-gray-600 mb-6"
+          <Typography
+            variant="h4"
+            component="h2"
             sx={{ fontSize: '1.5rem', color: '#6b7280', marginBottom: '1.5rem' }}
           >
             Oops! Page not found

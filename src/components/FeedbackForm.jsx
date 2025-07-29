@@ -10,41 +10,34 @@ import {
   Grid,
   Rating,
 } from "@mui/material";
-import { Feedback, Star } from "@mui/icons-material";
+import { Feedback } from "@mui/icons-material";
 import { useToast } from "@/contexts/ToastContext";
 
-interface FeedbackFormData {
-  name: string;
-  email: string;
-  rating: number;
-  comment: string;
-}
-
 export const FeedbackForm = () => {
-  const [formData, setFormData] = useState<FeedbackFormData>({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     rating: 0,
     comment: "",
   });
+
   const { showToast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.rating || !formData.comment) {
       showToast("Please fill in all fields", "error");
       return;
     }
-    
+
     if (formData.rating === 0) {
       showToast("Please provide a rating", "error");
       return;
     }
-    
+
     showToast("Feedback Submitted! 🎉 Thank you for your valuable feedback!", "success");
-    
-    // Reset form
+
     setFormData({
       name: "",
       email: "",
@@ -95,7 +88,7 @@ export const FeedbackForm = () => {
                   variant="outlined"
                 />
               </Grid>
-              
+
               <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
@@ -109,7 +102,7 @@ export const FeedbackForm = () => {
                 />
               </Grid>
             </Grid>
-            
+
             <Box className="space-y-3">
               <Typography variant="body1" className="font-medium text-gray-700">
                 Rating
@@ -138,7 +131,7 @@ export const FeedbackForm = () => {
                 )}
               </Box>
             </Box>
-            
+
             <TextField
               fullWidth
               id="comment"
@@ -151,7 +144,7 @@ export const FeedbackForm = () => {
               rows={5}
               className="resize-none"
             />
-            
+
             <Button
               type="submit"
               fullWidth
